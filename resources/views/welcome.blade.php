@@ -30,7 +30,7 @@
                             </svg>
                         </div>
                         <h1 class="display-5 fw-bold">
-                            Welcome to Laravel+Bootstrap 5
+                            Welcome to Laravel+Bootstrap 5 ciaone a tutti
                             <!-- Prova commit -->
                         </h1>
 
