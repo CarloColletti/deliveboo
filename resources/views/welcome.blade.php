@@ -30,7 +30,11 @@
                             </svg>
                         </div>
                         <h1 class="display-5 fw-bold">
+<<<<<<< HEAD
                             Welcome to Laravel+Bootstrap 5 ciaone a tutti
+=======
+                            Training-group2
+>>>>>>> 2c78bc7b647b1c678baf37586fb30bc107db77fc
                             <!-- Prova commit -->
                         </h1>
 
