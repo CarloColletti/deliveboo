@@ -31,11 +31,15 @@
                         </div>
                         <h1 class="display-5 fw-bold">
 <<<<<<< HEAD
+<<<<<<< HEAD
                             Welcome to Laravel+Bootstrap 5 ciaone a tutti
 =======
                             Training-group2
 >>>>>>> 2c78bc7b647b1c678baf37586fb30bc107db77fc
                             <!-- Prova commit -->
+=======
+                            Welcome to Laravel+Bootstrap 5
+>>>>>>> cf410406a0c68dd10edb9e7e8f97e26a33549daf
                         </h1>
 
                         <p class="col-md-8 fs-4">This a preset package with Bootstrap 5 views for laravel projects including laravel breeze/blade. It works from laravel 9.x to the latest release 10.x</p>
@@ -46,7 +50,7 @@
 
         </div>
     </main>
-{{-- commento --}}
+
 </body>
 
 </html>
