@@ -19,6 +19,9 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <div>
+                    <a href="{{ route('admin.restaurants.index') }}">Elenco Ristoranti</a>
+                </div>
             </div>
         </div>
     </div>

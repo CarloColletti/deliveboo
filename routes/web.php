@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
+use App\Http\Controllers\Admin\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::middleware('auth')
         function () {
             Route::get( '/dashboard',   [AdminHomeController::class,    'dashboard' ])->name('dashboard');
             Route::get( '/', [DashboardController::class,    'home']);
+            Route::resource('/restaurants', RestaurantController::class);
         }
     );
 
