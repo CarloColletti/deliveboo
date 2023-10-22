@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
@@ -29,7 +31,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.restaurants.create');
     }
 
     /**
@@ -40,8 +42,22 @@ class RestaurantController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {
-        //
-    }
+        $user = Auth::user();
+        $form_data = $request->all();
+        $newRestaurant = new Restaurant();
+        $newRestaurant->user_id = $user->id;
+        $newRestaurant->fill($form_data);
+        if($request->hasFile('photo')){
+
+            $path = Storage::put('restaurant_photo', $request->photo);
+
+            $form_data['photo'] = $path;
+
+            $newRestaurant->photo = $form_data['photo'];
+        }
+        $newRestaurant->save();
+        return redirect()->route('admin.restaurants.index');
+        }   
 
     /**
      * Display the specified resource.

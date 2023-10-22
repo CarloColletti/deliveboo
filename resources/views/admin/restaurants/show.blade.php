@@ -6,5 +6,5 @@
         <li>{{ $restaurant->address }}</li>
     </ul>
 
-    <img src="{{ $restaurant->photo }}" alt="">
+    <img src="{{ asset('storage/' . $restaurant->photo) }}" alt="">
 @endsection
