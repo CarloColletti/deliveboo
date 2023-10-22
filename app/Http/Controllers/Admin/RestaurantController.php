@@ -78,7 +78,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        //
+        return view('admin.restaurants.edit', compact('restaurant'));
     }
 
     /**
@@ -90,7 +90,12 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
     {
-        //
+        $user = Auth::user();
+        $form_data = $request->all();
+        $restaurant->user_id = $user->id;
+        $restaurant->fill($form_data);
+        $restaurant->save();
+        return redirect()->route('admin.restaurants.show', compact('restaurant'));//->with('message', "{$restaurant->name} è stato aggiornato correttamente");
     }
 
     /**
