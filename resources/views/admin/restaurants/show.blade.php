@@ -2,9 +2,9 @@
 
 @section('content')
     <ul class="mt-5">
-        <li>{{ $restaurant->piva     }}</li>
+        <li>{{ $restaurant->name }}</li>
+        <li>{{ $restaurant->piva }}</li>
         <li>{{ $restaurant->address }}</li>
     </ul>
-
-    <img src="{{ $restaurant->photo }}" alt="">
+    <img src="{{ asset('storage/' . $restaurant->photo) }}" alt="">
 @endsection
