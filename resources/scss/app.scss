@@ -8,3 +8,21 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
 @import "~bootstrap/scss/bootstrap";
+
+.bg-green {
+    background-color: rgb(208, 235, 153);
+};
+
+.bg-bi {
+    background: hsla(80, 67%, 76%, 1);
+
+    background: linear-gradient(280deg, hsla(80, 67%, 76%, 1) 50%, hsla(175, 100%, 40%, 1) 50%);
+
+    background: -moz-linear-gradient(2800deg, hsla(80, 67%, 76%, 1) 50%, hsla(175, 100%, 40%, 1) 50%);
+
+    background: -webkit-linear-gradient(280deg, hsla(80, 67%, 76%, 1) 50%, hsla(175, 100%, 40%, 1) 50%);
+}
+
+.pt-6 {
+    padding-top: 160px;
+}

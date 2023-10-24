@@ -1,10 +1,15 @@
 @extends('layouts.app')
 @section('content')
-  <div class="container jumbotron d-flex flex-column align-items-center justify-content-center text-center">
-    <img class="my-1" src="{{ Vite::asset('resources/img/logo.png') }}" alt="" height="150" width="150">
-    <h1 class="my-1">
-      Laravel 9
-      <span class="fs-6 fw-light text-muted"> - Bootstrap 'n Auth</span>
-    </h1>
+  <div class="jumbotron d-flex flex-column align-items-center justify-content-center text-center vh-100 bg-bi">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h1>Unisciti al nostro team!</h1>
+        </div>
+        <div class="col-6">
+          <img src="https://a.storyblok.com/f/62776/668x608/56d8990dbd/biker.png" alt="" style="width: 100%">
+        </div>
+      </div>
+    </div>
   </div>
 @endsection
