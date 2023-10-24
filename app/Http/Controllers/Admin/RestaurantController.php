@@ -21,7 +21,16 @@ class RestaurantController extends Controller
     {
         $user = Auth::id();
         $restaurants = Restaurant::where('user_id', $user)->get();
-        return view('admin.restaurants.index', compact('restaurants'));
+        
+        if (count($restaurants) < 1){
+
+            return view('admin.restaurants.index', compact('restaurants'));
+
+        } else {
+
+            return view('admin.restaurants.show' , compact('restaurants'));
+        }
+
     }
 
     /**
@@ -56,6 +65,7 @@ class RestaurantController extends Controller
             $newRestaurant->photo = $form_data['photo'];
         }
         $newRestaurant->save();
+        
         return redirect()->route('admin.restaurants.index');
         }   
 
@@ -67,6 +77,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        
         return view('admin.restaurants.show', compact('restaurant'));
     }
 

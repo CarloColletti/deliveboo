@@ -20,7 +20,10 @@
                     {{ __('You are logged in!') }}
                 </div>
                 <div>
-                    <a href="{{ route('admin.restaurants.index') }}">Elenco Ristoranti</a>
+                    Bentornato {{ Auth::user()->name }}
+                </div>
+                <div>
+                    <a href="{{ route('admin.restaurants.index') }}">Mostra dettagli ristorante</a>
                 </div>
             </div>
         </div>
