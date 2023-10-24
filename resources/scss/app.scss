@@ -9,6 +9,10 @@ $fa-font-path: "../fonts/webfonts" !default;
 
 @import "~bootstrap/scss/bootstrap";
 
+.color-purple {
+    color: rgb(69, 0, 99);
+}
+
 .bg-green {
     background-color: rgb(208, 235, 153);
 };
