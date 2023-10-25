@@ -20,15 +20,15 @@ class RestaurantController extends Controller
     public function index()
     {
         $user = Auth::id();
-        $restaurants = Restaurant::where('user_id', $user)->get();
+        $restaurant = Restaurant::where('user_id', $user)->first();
         
-        if (count($restaurants) < 1){
+        if ($restaurant == null){
 
-            return view('admin.restaurants.index', compact('restaurants'));
+            return view('admin.restaurants.index');
 
         } else {
 
-            return view('admin.restaurants.show' , compact('restaurants'));
+            return view('admin.restaurants.show' , compact('restaurant'));
         }
 
     }

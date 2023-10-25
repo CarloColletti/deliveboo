@@ -45,13 +45,13 @@ class DishController extends Controller
      */
     public function store(StoreDishRequest $request)
     {
-        /* $user = Auth::user();
+        $user = Auth::user();
         
-        $restaurant = Restaurant::where('user_id' , $user->id)->get()->toArray();
+        $restaurant = Restaurant::where('user_id' , $user->id)->first();
        
         
         $newdish = new Dish();
-        $newdish->restaurant_id = $restaurant[0]['id'];
+        $newdish->restaurant_id = $restaurant->id;
         
         $form_data = $request->all();
         $newdish->fill($form_data);
@@ -59,7 +59,7 @@ class DishController extends Controller
 
        
         
-        return redirect()->route('admin.restaurants.show');  */
+        return redirect()->route('admin.restaurants.show', compact('restaurant') );  
     }
 
     /**
