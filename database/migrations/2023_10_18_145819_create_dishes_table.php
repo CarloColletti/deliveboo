@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('ingredients');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(1);
             $table->decimal('price', 10, 2);
+            $table->text('image');
             $table->foreignId('restaurant_id');
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->timestamps();

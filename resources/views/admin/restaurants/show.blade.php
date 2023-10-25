@@ -3,9 +3,16 @@
 @section('content')
     <ul class="mt-5">
         
-        <li>{{ $restaurants[0]->name }}</li>
-        <li>{{ $restaurants[0]->piva }}</li>
-        <li>{{ $restaurants[0]->address }}</li>
+        <li>{{ $restaurant->name }}</li>
+        <li>{{ $restaurant->piva }}</li>
+        <li>{{ $restaurant->address }}</li>
     </ul>
-    <img src="{{ asset('storage/' . $restaurants[0]->photo) }}" alt="">
+    <img src="{{ asset('storage/' . $restaurant->photo) }}" alt="">
+
+
+    <div>
+        <a href="{{route('admin.dishes.create')}}">Aggiungi Piatto</a>
+    </div>
 @endsection
+
+        

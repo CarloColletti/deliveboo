@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use App\Models\Dish;
 use App\Http\Requests\StoreDishRequest;
 use App\Http\Requests\UpdateDishRequest;
+use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Middleware\Authenticate;
+use App\Models\Restaurant;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class DishController extends Controller
 {
@@ -15,7 +21,7 @@ class DishController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -25,7 +31,10 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        
+      
+        return view('admin.dishes.create');
+
     }
 
     /**
@@ -36,7 +45,21 @@ class DishController extends Controller
      */
     public function store(StoreDishRequest $request)
     {
-        //
+        /* $user = Auth::user();
+        
+        $restaurant = Restaurant::where('user_id' , $user->id)->get()->toArray();
+       
+        
+        $newdish = new Dish();
+        $newdish->restaurant_id = $restaurant[0]['id'];
+        
+        $form_data = $request->all();
+        $newdish->fill($form_data);
+        $newdish->save();
+
+       
+        
+        return redirect()->route('admin.restaurants.show');  */
     }
 
     /**
