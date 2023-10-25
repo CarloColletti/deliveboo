@@ -13,6 +13,10 @@
     <div>
         <a href="{{route('admin.dishes.create')}}">Aggiungi Piatto</a>
     </div>
+
+    <div>
+        <a href="{{route('admin.dishes.index')}}">Menu</a>
+    </div>
 @endsection
 
         
