@@ -16,7 +16,7 @@
 
 <body>
   <nav class="navbar-expand-md bg-green">
-    <div class="container">
+    <div class="container d-flex">
       <a class="navbar-brand d-flex align-items-center" href="{{ route('homepage') }}">
         <img src="https://cdn2.downdetector.com/static/uploads/logo/deliveroo_2_VV3s7Fj.png" alt="" style="width: 150px">
       </a>

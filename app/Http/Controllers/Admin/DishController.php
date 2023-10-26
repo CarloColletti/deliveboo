@@ -23,6 +23,7 @@ class DishController extends Controller
     {
         $user = Auth::user();
         $dishes = Dish::where('restaurant_id', $user->id)->get();
+        
         return view('admin.dishes.index', compact('dishes'));
     }
 
