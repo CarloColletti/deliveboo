@@ -5,6 +5,26 @@
 							@csrf
 							<div class="">
 								<input type="hidden" name="user_id" value="{{ Auth::id() }}">
+								{{-- TYPE INPUT --}}
+
+								<div class="mb-3">
+									<label for="type_id"></label>
+									<select class="form-control @error('type_id') is-invalid @enderror" type="text" name="type_id" id="type_id" placeholder="Inserisci il tipo di progetto">
+										<option value="">Undefined</option>
+						
+										@foreach ($types as $type)
+											<option value="{{$type->id}}" {{$type->id == old('type_id') ? 'selected' : ''}}>{{$type->name}}</option>
+										@endforeach
+									</select>
+						
+									@error('type_id')
+										<div class="invalid-feedback">
+											{{$message}}
+										</div>
+									@enderror
+								</div>
+
+								{{-- /TYPE INPUT --}}
 								{{-- NAME INPUT --}}
 								<div class="m-4 d-flex align-items-center row ">
 									<label class="text-uppercase fw-bold" for="name">Nome *</label>

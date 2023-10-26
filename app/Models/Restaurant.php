@@ -16,4 +16,9 @@ class Restaurant extends Model
         'piva',
         'photo'
     ];
+
+
+    public function type(){
+        return $this->belongsTo(Type::class);
+    }
 }

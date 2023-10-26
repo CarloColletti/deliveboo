@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2 class="fs-4 text-secondary my-4">
-        {{ __('Dashboard') }}
+       Bentornato {{ Auth::user()->name  }}
     </h2>
     <div class="row justify-content-center">
         <div class="col">
@@ -20,7 +20,7 @@
                     {{ __('You are logged in!') }}
                 </div>
                 <div>
-                    Bentornato {{ Auth::user()->name }}
+                    
                 </div>
                 <div>
                     <a href="{{ route('admin.restaurants.index') }}">Mostra dettagli ristorante</a>

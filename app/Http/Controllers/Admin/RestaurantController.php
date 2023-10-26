@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\Models\Type;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
 use Illuminate\Auth\Events\Validated;
@@ -40,7 +41,9 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        return view('admin.restaurants.create');
+        $types = Type::all();
+        
+        return view('admin.restaurants.create', compact('types'));
     }
 
     /**
@@ -55,6 +58,7 @@ class RestaurantController extends Controller
         $form_data = $request->all();
         $newRestaurant = new Restaurant();
         $newRestaurant->user_id = $user->id;
+        $newRestaurant->type_id = $form_data['type_id'];
         $newRestaurant->fill($form_data);
         if($request->hasFile('photo')){
 
@@ -77,6 +81,8 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+
+        
         
         return view('admin.restaurants.show', compact('restaurant'));
     }

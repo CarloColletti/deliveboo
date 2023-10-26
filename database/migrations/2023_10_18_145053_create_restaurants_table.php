@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('type_id');
+            $table->foreign('type_id')->references('id')->on('types');
             $table->string('name');
             $table->string('address');
             $table->string('piva');

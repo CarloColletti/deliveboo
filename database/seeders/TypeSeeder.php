@@ -15,33 +15,14 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        $types=[
-            [
-                'name' => "Italiano"
-            ],
-            [
-                'name' => "Messicano"
-            ],
-            [
-                'name' => "Giapponese"
-            ],
-            [
-                'name' => "Indiano"
-            ],
-            [
-                'name' => "Americano"
-            ],
-            [
-                'name' => "Napoletano"
-            ],
-            [
-                'name' => "Cinese"
-            ],
-        ];
+        $types= [ 'Italiano' , 'Messicano' , 'Giapponese' , 'Indiano' , 'Americano' , 'Napoletano' , ' Cinese' ] ; 
+        
+            
+        
 
         foreach ($types as $type) {
             $newtype = new Type();
-            $newtype->name = $type['name'];
+            $newtype->name = $type;
             $newtype->save();
         }
     }
