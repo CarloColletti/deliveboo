@@ -6,7 +6,7 @@
 
         <div class="aside d-flex flex-column text-center justify-content-start">
             <a href="{{route('admin.dishes.index')}}">Torna al menù</a>
-            <a href="{{route('admin.dishes.edit', compact('dish'))}}">Modifica Piatto</a>
+            <a href="{{route('admin.dishes.edit', $dish->slug)}}">Modifica Piatto</a>
             
         </div>
             

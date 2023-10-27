@@ -29,9 +29,9 @@ Route::middleware('auth')
     ->group(
         function () {
             Route::get( '/dashboard',   [AdminHomeController::class,    'dashboard' ])->name('dashboard');
-            Route::get( '/', [DashboardController::class,    'home']);
-            Route::resource('/restaurants', RestaurantController::class);
-            Route::resource('/dishes' , DishController::class);
+            Route::get( '/', [DashboardController::class, 'home']);
+            Route::resource('/restaurants', RestaurantController::class)->parameters(['restaurants' => 'restaurant:slug']);
+            Route::resource('/dishes' , DishController::class)->parameters(['dishes' => 'dish:slug']);
            
         }
     );

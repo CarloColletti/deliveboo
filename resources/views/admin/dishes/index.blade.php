@@ -31,7 +31,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                          <form action="{{route('admin.dishes.destroy' , compact('dish'))}}" method="POST">
+                          <form action="{{route('admin.dishes.destroy' , $dish->slug)}}" method="POST">
                             @csrf
                             @method('DELETE')
                           <button type="submit" class="btn btn-danger">Conferma</button>
@@ -57,7 +57,7 @@
                     <div class="d-flex  justify-content-around mt-2">
 
                         <div>
-                            <a href="{{route('admin.dishes.edit', compact('dish'))}}" class="btn btn-info">Modifica Piatto</a>
+                            <a href="{{route('admin.dishes.edit', $dish->slug)}}" class="btn btn-info">Modifica Piatto</a>
                         </div>
                         <div>
                             <button class="btn btn-danger my-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ $dish->id }}">Elimina Piatto</button>

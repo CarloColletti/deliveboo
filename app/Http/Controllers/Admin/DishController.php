@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Middleware\Authenticate;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use illuminate\Support\Str;
 
 class DishController extends Controller
 {
@@ -63,16 +64,17 @@ class DishController extends Controller
         
         $form_data = $request->all();
         $newdish->fill($form_data);
-
+        
         if($request->hasFile('image')){
-
+            
             $path = Storage::put('dish_photo', $request->image);
-
+            
             $form_data['image'] = $path;
-
+            
             $newdish->image = $form_data['image'];
         }
-
+        
+        $newdish->slug = Str::slug($form_data['name'] , '-');
 
         $newdish->save();
 
@@ -131,9 +133,10 @@ class DishController extends Controller
         } 
 
         
+        $dish->slug = Str::slug($form_data['name'] , '-');
         $dish->update($form_data);
         
-        return redirect()->route('admin.dishes.show', compact('dish'));
+        return redirect()->route('admin.dishes.show', $dish->slug);
     }
 
     /**

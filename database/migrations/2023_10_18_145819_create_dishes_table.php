@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('restaurant_id');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->cascadeOnDelete();
             $table->string('name');
             $table->text('description');
             $table->string('ingredients');
             $table->boolean('visible')->default(1);
             $table->decimal('price', 10, 2);
             $table->text('image');
-            $table->foreignId('restaurant_id');
-            $table->foreign('restaurant_id')->references('id')->on('restaurants')->cascadeOnDelete();
+            $table->string('slug' , 200);
             $table->timestamps();
         });
 

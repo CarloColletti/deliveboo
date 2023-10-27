@@ -7,7 +7,7 @@
         <div class="aside d-flex flex-column text-center justify-content-start">
             <a href="{{route('admin.dishes.index')}}">Menu</a>
             <a href="{{route('admin.dishes.create')}}">Aggiungi Piatto</a>
-            <a href="{{route('admin.restaurants.edit' , compact('restaurant'))}}">Modifica informazioni Ristorante</a>
+            <a href="{{route('admin.restaurants.edit' , $restaurant->slug)}}">Modifica informazioni Ristorante</a>
             <button class="btn btn-danger my-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Elimina Ristorante</button>
         </div>
 
@@ -42,7 +42,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-              <form action="{{route('admin.restaurants.destroy', $restaurant->id)}}" method="POST">
+              <form action="{{route('admin.restaurants.destroy', $restaurant->slug)}}" method="POST">
                 @csrf
                 @method('DELETE')
               <button type="submit" class="btn btn-danger">Conferma</button>

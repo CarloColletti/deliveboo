@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateRestaurantRequest;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use illuminate\Support\Str;
 
 class RestaurantController extends Controller
 {
@@ -59,6 +60,7 @@ class RestaurantController extends Controller
         $newRestaurant = new Restaurant();
         $newRestaurant->user_id = $user->id;
         $newRestaurant->type_id = $form_data['type_id'];
+        $newRestaurant->slug = Str::slug($form_data['name'] , '-');
         $newRestaurant->fill($form_data);
         if($request->hasFile('photo')){
 
@@ -124,9 +126,10 @@ class RestaurantController extends Controller
         } 
 
         $restaurant->user_id = $user->id;
+        $restaurant->slug = Str::slug($form_data['name'] , '-');
         $restaurant->update($form_data);
         $restaurant->save();
-        return redirect()->route('admin.restaurants.show', compact('restaurant'));//->with('message', "{$restaurant->name} è stato aggiornato correttamente");
+        return redirect()->route('admin.restaurants.show', $restaurant->slug);//->with('message', "{$restaurant->name} è stato aggiornato correttamente");
     }
 
     /**
