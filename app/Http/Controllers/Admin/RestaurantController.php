@@ -109,8 +109,22 @@ class RestaurantController extends Controller
     {
         $user = Auth::user();
         $form_data = $request->all();
+
+        if($request->hasFile('photo')) {
+
+            if($restaurant->photo){
+
+                Storage::delete($restaurant->photo);
+            }
+
+            $path = Storage::put('photo', $request->photo);
+
+            $form_data['photo'] = $path;
+
+        } 
+
         $restaurant->user_id = $user->id;
-        $restaurant->fill($form_data);
+        $restaurant->update($form_data);
         $restaurant->save();
         return redirect()->route('admin.restaurants.show', compact('restaurant'));//->with('message', "{$restaurant->name} è stato aggiornato correttamente");
     }
@@ -123,6 +137,14 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+        if($restaurant->photo){
+
+            Storage::delete($restaurant->photo);
+        }
+
+        $restaurant->delete();
+
+        return redirect()->route('admin.restaurants.index');
     }
 }
+

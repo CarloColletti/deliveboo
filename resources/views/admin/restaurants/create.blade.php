@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+					<div class="form-container">
+
 						<form action="{{ route('admin.restaurants.store') }}" method="POST" enctype="multipart/form-data">
 							@csrf
 							<div class="">
@@ -9,8 +11,8 @@
 
 								<div class="mb-3">
 									<label for="type_id"></label>
-									<select class="form-control @error('type_id') is-invalid @enderror" type="text" name="type_id" id="type_id" placeholder="Inserisci il tipo di progetto">
-										<option value="">Undefined</option>
+									<select class="form-control m-4  @error('type_id') is-invalid @enderror" type="text" name="type_id" id="type_id" placeholder="Inserisci il tipo di progetto">
+										<option value="">Scegli una tipologia di ristorante</option>
 						
 										@foreach ($types as $type)
 											<option value="{{$type->id}}" {{$type->id == old('type_id') ? 'selected' : ''}}>{{$type->name}}</option>
@@ -94,4 +96,5 @@
                                 </div>
 							</div>
 				        </form>
+					</div>
 @endsection
