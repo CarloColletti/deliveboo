@@ -117,7 +117,7 @@ class RestaurantController extends Controller
                 Storage::delete($restaurant->photo);
             }
 
-            $path = Storage::put('photo', $request->photo);
+            $path = Storage::put('restaurant_photo', $request->photo);
 
             $form_data['photo'] = $path;
 

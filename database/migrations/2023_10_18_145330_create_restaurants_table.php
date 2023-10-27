@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('type_id');
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->foreign('type_id')->references('id')->on('types')->cascadeOnDelete();
             $table->string('name');
             $table->string('address');
             $table->string('piva');
             $table->text('photo');
+            $table->string('slug' , 200);
             $table->timestamps();
         });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Dish;
@@ -25,6 +26,8 @@ class DishController extends Controller
         $restaurant = Restaurant::where('user_id' , $user->id)->first(); 
         
         $dishes = Dish::where('restaurant_id', $restaurant->id)->get();
+        
+     
         
         return view('admin.dishes.index', compact('dishes'));
     }
@@ -60,6 +63,17 @@ class DishController extends Controller
         
         $form_data = $request->all();
         $newdish->fill($form_data);
+
+        if($request->hasFile('image')){
+
+            $path = Storage::put('dish_photo', $request->image);
+
+            $form_data['image'] = $path;
+
+            $newdish->image = $form_data['image'];
+        }
+
+
         $newdish->save();
 
        
@@ -75,7 +89,7 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        //
+        return view('admin.dishes.show', compact('dish'));
     }
 
     /**
@@ -86,7 +100,9 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        //
+        
+        return view('admin.dishes.edit', compact('dish'));
+
     }
 
     /**
@@ -98,7 +114,26 @@ class DishController extends Controller
      */
     public function update(UpdateDishRequest $request, Dish $dish)
     {
-        //
+        $user = Auth::user();
+        $form_data = $request->all();
+
+        if($request->hasFile('image')) {
+
+            if($dish->image){
+
+                Storage::delete($dish->image);
+            }
+
+            $path = Storage::put('dish_photo', $request->image);
+
+            $form_data['image'] = $path;
+
+        } 
+
+        
+        $dish->update($form_data);
+        
+        return redirect()->route('admin.dishes.show', compact('dish'));
     }
 
     /**
@@ -109,6 +144,14 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        //
+        if($dish->image){
+
+            Storage::delete($dish->image);
+        }
+
+       
+        $dish->delete();
+
+        return redirect()->route('admin.dishes.index');
     }
 }

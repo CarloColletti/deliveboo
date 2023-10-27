@@ -14,7 +14,8 @@ class Restaurant extends Model
         'name',
         'address',
         'piva',
-        'photo'
+        'photo',
+        'slug'
     ];
 
 

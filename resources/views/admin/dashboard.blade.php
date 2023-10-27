@@ -18,12 +18,12 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div>
+                        <a href="{{ route('admin.restaurants.index') }}" class="p-5 text-decoration-none text-uppercase">Vai al tuo ristorante</a>
+                    </div>
                 </div>
                 <div>
                     
-                </div>
-                <div>
-                    <a href="{{ route('admin.restaurants.index') }}">Mostra dettagli ristorante</a>
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->text('image');
             $table->foreignId('restaurant_id');
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->cascadeOnDelete();
             $table->timestamps();
         });
 
@@ -34,7 +34,11 @@ return new class extends Migration
      * @return void
      */
     public function down()
+
+
     {
+
+
         Schema::dropIfExists('dishes');
     }
 };

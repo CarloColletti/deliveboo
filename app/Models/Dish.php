@@ -19,4 +19,6 @@ class Dish extends Model
         'ingredients'
     ];
 
+    
+
 }
