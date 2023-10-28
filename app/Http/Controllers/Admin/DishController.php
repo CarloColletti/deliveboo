@@ -13,6 +13,7 @@ use App\Http\Middleware\Authenticate;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class DishController extends Controller
 {
@@ -63,6 +64,9 @@ class DishController extends Controller
         $newdish->restaurant_id = $restaurant->id;
         
         $form_data = $request->all();
+
+        $this->validation($form_data);
+
         $newdish->fill($form_data);
         
         if($request->hasFile('image')){
@@ -116,8 +120,10 @@ class DishController extends Controller
      */
     public function update(UpdateDishRequest $request, Dish $dish)
     {
-        $user = Auth::user();
+        
         $form_data = $request->all();
+
+        $this->validation($form_data);
 
         if($request->hasFile('image')) {
 
@@ -157,4 +163,42 @@ class DishController extends Controller
 
         return redirect()->route('admin.dishes.index');
     }
+
+
+
+
+    private function validation($form_data){
+        $validator = Validator::make($form_data , [
+            'name' => 'required|max:50|min:5',
+            'description' => 'required|min:5',
+            'ingredients' => 'required|regex:/^[a-zA-Z\s,]+$/|min:4',
+            'price' => 'required|numeric|max:300',
+            'image' => 'nullable|image|max:4096',
+            
+        ] , [
+            
+            'name.required' => 'Devi inserire il nome del piatto',
+            'name.max' => 'Il nome del piatto può contenere un massimo di :max caratteri',
+            'name.min' => 'il nome del piatto deve contenere un minimo di :min caratteri',
+            'description.required' => 'Inserisci una descrizione per il tuo piatto!',
+            'description.min' => 'la descrizione deve contenere un minimo di :min caratteri',
+            'ingredients.required' => 'Inserisci degli ingredienti',
+            'ingredients.regex' => 'Inserisci un ingrediente valido!',
+            'ingredients.min' => 'il tuo ingrediente deve contenere almeno 4 lettere',
+            'price.required' => 'Inserisci un prezzo',
+            'price.max' => 'Inserisci un prezzo valido',
+            'price.numeric' => 'Inserisci un prezzo valido!',
+            'image.max' => 'la dimensione del file è troppo grande!',
+            'image.image' => 'Devi inserire un file di tipo immagine!',
+            
+    
+    
+        ])->validate();
+    
+        
+    }
 }
+
+
+
+

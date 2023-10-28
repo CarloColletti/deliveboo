@@ -25,12 +25,11 @@
 
 								{{-- Descrizione IMPUT --}}
 								<div class="m-4 d-flex align-items-center row ">
-									<label class="text-uppercase fw-bold" for="address">Descrizione</label>
+									<label class="text-uppercase fw-bold" for="description">Descrizione</label>
 
 									<div class="col-md-6">
 
-										<input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description"
-											value="{{ $dish->description }}" required>
+										<textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description"  required>{{ $dish->description }}</textarea>
 
 										@error('description')
 											<span class="invalid-feedback" role="alert">
@@ -64,7 +63,7 @@
 									<label class="text-uppercase fw-bold" for="price">Prezzo</label>
 
 									<div class="col-md-6">
-										<input id="price" type="number" min="0"
+										<input id="price" type="number" min="0" step="0.01"
 											class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required > 
 										
 										

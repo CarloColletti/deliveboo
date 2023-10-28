@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
 {
@@ -57,6 +58,9 @@ class RestaurantController extends Controller
     {
         $user = Auth::user();
         $form_data = $request->all();
+
+        $this->validation($form_data);
+
         $newRestaurant = new Restaurant();
         $newRestaurant->user_id = $user->id;
         $newRestaurant->type_id = $form_data['type_id'];
@@ -112,6 +116,8 @@ class RestaurantController extends Controller
         $user = Auth::user();
         $form_data = $request->all();
 
+        $this->validation($form_data);
+
         if($request->hasFile('photo')) {
 
             if($restaurant->photo){
@@ -149,5 +155,39 @@ class RestaurantController extends Controller
 
         return redirect()->route('admin.restaurants.index');
     }
+
+
+    private function validation($form_data){
+        $validator = Validator::make($form_data , [
+            'type.id' => 'nullable|exists:types,id',
+            'name' => 'required|min:5|max:50',
+            'address' => 'required|min:5|max:50',
+            'piva' => 'required|numeric|min:11|max:11|',
+            'photo' => 'nullable|image|max:4096',
+            
+        ] , [
+            
+            'type.id.exists' => 'Inserisci Tipologia Risotrante',
+            'name.required' => 'Inserisci il nome del ristorante',
+            'name.max' => 'Il nome del piatto può contenere un massimo di :max caratteri',
+            'name.min' => 'il nome del piatto deve contenere un minimo di :min caratteri',
+            'address.required' => 'Inserisci un\'indirizzo!',
+            'address.min' => 'l\'indirizzo deve contenere almeno 5 caratteri!',
+            'address.max' => 'l\'indirizzo deve contenere un massimo di 50 caratteri',
+            'piva.required' => 'Inserisci la tua Partita Iva!',
+            'piva.numeric' => 'La Partita Iva deve essere formata da soli numeri!',
+            'piva.min' => 'La Partita Iva deve contenere 11 numeri',
+            'piva.max' => 'La Partita Iva deve contenere 11 numeri',
+            'photo.image' => 'Devi inserire un file di tipo immagine!',
+            'photo.max' => 'Dimensione immagine troppo grande!'
+    
+    
+        ])->validate();
+    
+        
+    }
+
+
+
 }
 

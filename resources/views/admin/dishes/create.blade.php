@@ -28,10 +28,7 @@
 
 									<div class="col-md-6">
 
-										<textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description"
-											value="{{ old('description') }}" required>
-                                        
-                                        </textarea>    
+										<textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required></textarea>    
 
 										@error('description')
 											<span class="invalid-feedback" role="alert">
@@ -47,9 +44,7 @@
 									<label class="text-uppercase fw-bold" for="ingredients">ingredienti</label>
 
 									<div class="col-md-6">
-										<textarea id="ingredients" type="text"
-											class="form-control @error('ingredients') is-invalid @enderror" name="ingredients" value="{{ old('ingredients') }}" required > 
-                                        </textarea>
+										<textarea id="ingredients" type="text" class="form-control @error('ingredients') is-invalid @enderror" name="ingredients" value="{{ old('ingredients') }}" required ></textarea>
                                         
 
 										@error('ingredients')
