@@ -9,9 +9,9 @@
 								<input type="hidden" name="user_id" value="{{ Auth::id() }}">
 								{{-- TYPE INPUT --}}
 
-								<div class="mb-3">
+								{{-- <div class="mb-3">
 									<label for="type_id"></label>
-									<select class="form-control m-4  @error('type_id') is-invalid @enderror" type="text" name="type_id" id="type_id" placeholder="Inserisci il tipo di progetto">
+									<select class="form-control m-4  @error('type_id') is-invalid @enderror" type="text" name="type_id[]" id="type_id[]" placeholder="Inserisci il tipo di progetto" multiple>
 										<option value="">Scegli una tipologia di ristorante</option>
 						
 										@foreach ($types as $type)
@@ -24,6 +24,27 @@
 											{{$message}}
 										</div>
 									@enderror
+								</div> --}}
+
+								<div class="mb-3 form-group">
+									<div class="text-uppercase fw-bold p-4">Tipologie Ristorante :</div>
+						
+									<div class="d-flex mt-3">
+										@foreach ($types as $type)
+										
+										<div class="form-check text-center ">
+											<input type="checkbox" name="types[]" value="{{ $type->id }}" class="form-check-input"
+                                        		{{ in_array($type->id, old('types', [])) ? 'checked' : '' }}>
+                                    		<label for="" class="form-check-label">{{ $type->name }}</label>
+										</div>
+										@endforeach
+
+									</div>
+
+									
+						
+								   
+						
 								</div>
 
 								{{-- /TYPE INPUT --}}

@@ -2,6 +2,8 @@
 
 @section('content')
      
+
+
     <div class="main-container">
 
         <div class="aside d-flex flex-column text-center justify-content-start">
@@ -14,7 +16,14 @@
         <div class="restaurant-info">
             <ul class="mt-5">
                 <li class="restaurant-name">{{ $restaurant->name }}</li>
-                <li><span class="fst-italic">Tipologia Ristorante:</span> <span class="fw-bold">{{$restaurant->type->name}}</span></li>
+                <li><span class="fst-italic">Tipologia Ristorante:</span> <span class="fw-bold"> 
+                  <ul class="d-flex gap-3">
+
+                    @foreach ($restaurant->types as $type)
+                        <li>{{$type->name}}</li>
+                    @endforeach </span></li>
+
+                  </ul>
                 <li><span class="fst-italic">Partita IVA:</span> <span class="fw-bold">{{ $restaurant->piva }}</span></li>
                 <li><span class="fst-italic">Indirizzo Ristorante:</span> <span class="fw-bold">{{ $restaurant->address }}</span></li>
             </ul>

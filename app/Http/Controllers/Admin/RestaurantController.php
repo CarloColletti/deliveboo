@@ -59,11 +59,13 @@ class RestaurantController extends Controller
         $user = Auth::user();
         $form_data = $request->all();
 
+        
+
         $this->validation($form_data);
 
         $newRestaurant = new Restaurant();
         $newRestaurant->user_id = $user->id;
-        $newRestaurant->type_id = $form_data['type_id'];
+       
         $newRestaurant->slug = Str::slug($form_data['name'] , '-');
         $newRestaurant->fill($form_data);
         if($request->hasFile('photo')){
@@ -74,7 +76,17 @@ class RestaurantController extends Controller
 
             $newRestaurant->photo = $form_data['photo'];
         }
+
         $newRestaurant->save();
+        
+        if($request->has('types')){
+            
+            $newRestaurant->types()->attach($request->types);
+        }
+        
+
+        
+        
         
         return redirect()->route('admin.restaurants.index');
         }   
@@ -162,7 +174,7 @@ class RestaurantController extends Controller
             'type.id' => 'nullable|exists:types,id',
             'name' => 'required|min:5|max:50',
             'address' => 'required|min:5|max:50',
-            'piva' => 'required|numeric|min:11|max:11|',
+            'piva' => 'required|numeric|digits:11',
             'photo' => 'nullable|image|max:4096',
             
         ] , [
@@ -176,10 +188,10 @@ class RestaurantController extends Controller
             'address.max' => 'l\'indirizzo deve contenere un massimo di 50 caratteri',
             'piva.required' => 'Inserisci la tua Partita Iva!',
             'piva.numeric' => 'La Partita Iva deve essere formata da soli numeri!',
-            'piva.min' => 'La Partita Iva deve contenere 11 numeri',
-            'piva.max' => 'La Partita Iva deve contenere 11 numeri',
+            'piva.digits' => 'La Partita Iva deve contenere 11 numeri',
             'photo.image' => 'Devi inserire un file di tipo immagine!',
             'photo.max' => 'Dimensione immagine troppo grande!'
+            
     
     
         ])->validate();
