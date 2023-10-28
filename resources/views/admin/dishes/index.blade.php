@@ -13,9 +13,9 @@
 
         @else 
 
-        
-        
-            <ul class="dish-info d-flex gap-3">
+        <h1 class="text-center p-4">Questi sono tutti piatti del ristorante</h1>
+
+            <ul class="dishes-info">
                 @foreach ($dishes as $dish)
                 {{-- Modale Eliminiazione Piatto --}}
                 
@@ -45,12 +45,12 @@
         
     
             {{-- /Modale eliminazione Piatto --}}
-                <div>
+                <div class="dish-container">
                    
-                    <li class="list-unstyled">Nome Piatto: {{ $dish->name }}</li>
-                    <li class="list-unstyled">Descrizione Piatto: {{$dish->description}}</li>
-                    <li class="list-unstyled">Ingredienti: {{$dish->ingredients}}</li>
-                    <li class="list-unstyled">Prezzo: {{$dish->price}}</li>
+                    <li class="list-unstyled"><em>Nome Piatto</em>: <strong>{{ $dish->name }}</strong></li>
+                    <li class="list-unstyled"><em>Descrizione Piatto</em>: <strong>{{$dish->description}}</strong></li>
+                    <li class="list-unstyled"><em>Ingredienti</em>: <strong>{{$dish->ingredients}}</strong></li>
+                    <li class="list-unstyled mb-3"><em>Prezzo</em>: <strong> &euro; {{$dish->price}}</strong></li>
                     <div class="img-container">
                         <img src="{{ asset('storage/' . $dish->image) }}" alt="">
                     </div>
