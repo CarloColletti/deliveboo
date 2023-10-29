@@ -38,24 +38,7 @@
                 {{-- section INPUT  --}}
                 <div class="row my-4 py-2 border border-secondary border-opacity-25 shadow rounded-3">
 
-                    <div class="col-8 px-3">
-
-                        @if ($restaurant->id)
-                        @else
-                            <div class="py-3">
-                                <div class="text-uppercase fw-bold py-3">Tipologie Ristorante :</div>
-                                <div class="d-flex">
-                                    @foreach ($types as $type)
-                                        <div class="form-check text-center px-4">
-                                            <input type="checkbox" name="types[]" value="{{ $type->id }}"
-                                                class="form-check-input"
-                                                {{ in_array($type->id, old('types', [])) ? 'checked' : '' }}>
-                                            <label for="" class="form-check-label">{{ $type->name }}</label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endif
+                    <div class="col-8 px-4">
                         {{-- TYPE INPUT --}}
                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                         @if ($restaurant->id)
