@@ -25,12 +25,12 @@ class DishController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $restaurant = Restaurant::where('user_id' , $user->id)->first(); 
-        
+        $restaurant = Restaurant::where('user_id', $user->id)->first();
+
         $dishes = Dish::where('restaurant_id', $restaurant->id)->get();
-        
-     
-        
+
+
+
         return view('admin.dishes.index', compact('dishes'));
     }
 
@@ -41,10 +41,10 @@ class DishController extends Controller
      */
     public function create()
     {
-        
-      
-        return view('admin.dishes.create');
 
+        $dish = new Dish;
+
+        return view('admin.dishes.form', compact('dish'));
     }
 
     /**
@@ -56,35 +56,35 @@ class DishController extends Controller
     public function store(StoreDishRequest $request)
     {
         $user = Auth::user();
-        
-        $restaurant = Restaurant::where('user_id' , $user->id)->first();
-       
-        
+
+        $restaurant = Restaurant::where('user_id', $user->id)->first();
+
+
         $newdish = new Dish();
         $newdish->restaurant_id = $restaurant->id;
-        
+
         $form_data = $request->all();
 
         $this->validation($form_data);
 
         $newdish->fill($form_data);
-        
-        if($request->hasFile('image')){
-            
+
+        if ($request->hasFile('image')) {
+
             $path = Storage::put('dish_photo', $request->image);
-            
+
             $form_data['image'] = $path;
-            
+
             $newdish->image = $form_data['image'];
         }
-        
-        $newdish->slug = Str::slug($form_data['name'] , '-');
+
+        $newdish->slug = Str::slug($form_data['name'], '-');
 
         $newdish->save();
 
-       
-        
-        return redirect()->route('admin.restaurants.show', compact('restaurant') );  
+
+
+        return redirect()->route('admin.restaurants.show', compact('restaurant'));
     }
 
     /**
@@ -106,9 +106,8 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        
-        return view('admin.dishes.edit', compact('dish'));
 
+        return view('admin.dishes.form', compact('dish'));
     }
 
     /**
@@ -120,14 +119,14 @@ class DishController extends Controller
      */
     public function update(UpdateDishRequest $request, Dish $dish)
     {
-        
+
         $form_data = $request->all();
 
         $this->validation($form_data);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
 
-            if($dish->image){
+            if ($dish->image) {
 
                 Storage::delete($dish->image);
             }
@@ -135,13 +134,12 @@ class DishController extends Controller
             $path = Storage::put('dish_photo', $request->image);
 
             $form_data['image'] = $path;
+        }
 
-        } 
 
-        
-        $dish->slug = Str::slug($form_data['name'] , '-');
+        $dish->slug = Str::slug($form_data['name'], '-');
         $dish->update($form_data);
-        
+
         return redirect()->route('admin.dishes.show', $dish->slug);
     }
 
@@ -153,12 +151,12 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        if($dish->image){
+        if ($dish->image) {
 
             Storage::delete($dish->image);
         }
 
-       
+
         $dish->delete();
 
         return redirect()->route('admin.dishes.index');
@@ -167,16 +165,17 @@ class DishController extends Controller
 
 
 
-    private function validation($form_data){
-        $validator = Validator::make($form_data , [
+    private function validation($form_data)
+    {
+        $validator = Validator::make($form_data, [
             'name' => 'required|max:50|min:5',
             'description' => 'required|min:5',
             'ingredients' => 'required|regex:/^[a-zA-Z\s,]+$/|min:4',
             'price' => 'required|numeric|max:300',
             'image' => 'nullable|image|max:4096',
-            
-        ] , [
-            
+
+        ], [
+
             'name.required' => 'Devi inserire il nome del piatto',
             'name.max' => 'Il nome del piatto può contenere un massimo di :max caratteri',
             'name.min' => 'il nome del piatto deve contenere un minimo di :min caratteri',
@@ -190,15 +189,9 @@ class DishController extends Controller
             'price.numeric' => 'Inserisci un prezzo valido!',
             'image.max' => 'la dimensione del file è troppo grande!',
             'image.image' => 'Devi inserire un file di tipo immagine!',
-            
-    
-    
+
+
+
         ])->validate();
-    
-        
     }
 }
-
-
-
-
