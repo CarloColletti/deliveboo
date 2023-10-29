@@ -24,16 +24,14 @@ class RestaurantController extends Controller
     {
         $user = Auth::id();
         $restaurant = Restaurant::where('user_id', $user)->first();
-        
-        if ($restaurant == null){
+
+        if ($restaurant == null) {
 
             return view('admin.restaurants.index');
-
         } else {
 
-            return view('admin.restaurants.show' , compact('restaurant'));
+            return view('admin.restaurants.show', compact('restaurant'));
         }
-
     }
 
     /**
@@ -44,8 +42,10 @@ class RestaurantController extends Controller
     public function create()
     {
         $types = Type::all();
-        
-        return view('admin.restaurants.create', compact('types'));
+
+        $restaurant = new Restaurant();
+
+        return view('admin.restaurants.form', compact('types', 'restaurant'));
     }
 
     /**
@@ -59,16 +59,16 @@ class RestaurantController extends Controller
         $user = Auth::user();
         $form_data = $request->all();
 
-        
+
 
         $this->validation($form_data);
 
         $newRestaurant = new Restaurant();
         $newRestaurant->user_id = $user->id;
-       
-        $newRestaurant->slug = Str::slug($form_data['name'] , '-');
+
+        $newRestaurant->slug = Str::slug($form_data['name'], '-');
         $newRestaurant->fill($form_data);
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
 
             $path = Storage::put('restaurant_photo', $request->photo);
 
@@ -78,18 +78,18 @@ class RestaurantController extends Controller
         }
 
         $newRestaurant->save();
-        
-        if($request->has('types')){
-            
+
+        if ($request->has('types')) {
+
             $newRestaurant->types()->attach($request->types);
         }
-        
 
-        
-        
-        
+
+
+
+
         return redirect()->route('admin.restaurants.index');
-        }   
+    }
 
     /**
      * Display the specified resource.
@@ -100,8 +100,8 @@ class RestaurantController extends Controller
     public function show(Restaurant $restaurant)
     {
 
-        
-        
+
+
         return view('admin.restaurants.show', compact('restaurant'));
     }
 
@@ -113,7 +113,9 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        return view('admin.restaurants.edit', compact('restaurant'));
+        $types = Type::all();
+
+        return view('admin.restaurants.form', compact('types', 'restaurant'));
     }
 
     /**
@@ -130,9 +132,9 @@ class RestaurantController extends Controller
 
         $this->validation($form_data);
 
-        if($request->hasFile('photo')) {
+        if ($request->hasFile('photo')) {
 
-            if($restaurant->photo){
+            if ($restaurant->photo) {
 
                 Storage::delete($restaurant->photo);
             }
@@ -140,14 +142,13 @@ class RestaurantController extends Controller
             $path = Storage::put('restaurant_photo', $request->photo);
 
             $form_data['photo'] = $path;
-
-        } 
+        }
 
         $restaurant->user_id = $user->id;
-        $restaurant->slug = Str::slug($form_data['name'] , '-');
+        $restaurant->slug = Str::slug($form_data['name'], '-');
         $restaurant->update($form_data);
         $restaurant->save();
-        return redirect()->route('admin.restaurants.show', $restaurant->slug);//->with('message', "{$restaurant->name} è stato aggiornato correttamente");
+        return redirect()->route('admin.restaurants.show', $restaurant->slug); //->with('message', "{$restaurant->name} è stato aggiornato correttamente");
     }
 
     /**
@@ -158,7 +159,7 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        if($restaurant->photo){
+        if ($restaurant->photo) {
 
             Storage::delete($restaurant->photo);
         }
@@ -169,16 +170,17 @@ class RestaurantController extends Controller
     }
 
 
-    private function validation($form_data){
-        $validator = Validator::make($form_data , [
+    private function validation($form_data)
+    {
+        $validator = Validator::make($form_data, [
             'type.id' => 'nullable|exists:types,id',
             'name' => 'required|min:5|max:50',
             'address' => 'required|min:5|max:50',
             'piva' => 'required|numeric|digits:11',
             'photo' => 'nullable|image|max:4096',
-            
-        ] , [
-            
+
+        ], [
+
             'type.id.exists' => 'Inserisci Tipologia Risotrante',
             'name.required' => 'Inserisci il nome del ristorante',
             'name.max' => 'Il nome del piatto può contenere un massimo di :max caratteri',
@@ -191,15 +193,9 @@ class RestaurantController extends Controller
             'piva.digits' => 'La Partita Iva deve contenere 11 numeri',
             'photo.image' => 'Devi inserire un file di tipo immagine!',
             'photo.max' => 'Dimensione immagine troppo grande!'
-            
-    
-    
+
+
+
         ])->validate();
-    
-        
     }
-
-
-
 }
-
