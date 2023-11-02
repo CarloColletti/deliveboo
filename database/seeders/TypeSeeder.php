@@ -15,7 +15,7 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        $types= [ 'Italiano' , 'Messicano' , 'Giapponese' , 'Indiano' , 'Americano' , 'Napoletano' , ' Cinese' ] ; 
+        $types= [ 'Hamburgeria' , 'Sushi' , 'Pizzeria' , 'Pokeria' , 'Piadineria' , 'Gelateria' , 'Kebab', 'Cornetteria' ] ; 
         
             
         
