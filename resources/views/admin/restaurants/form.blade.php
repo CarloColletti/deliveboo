@@ -108,7 +108,7 @@
                             <div class="form-group py-3 d-flex flex-column">
                                 <label class="text-uppercase fw-bold" for="photo">Scegli foto *</label>
                                 <input class="py-2" type="file" class="form-control" id="photo" name="photo"
-                                    required>
+                                    >
                                 <div id="image-validation-message"></div>
                             </div>
                         </div>

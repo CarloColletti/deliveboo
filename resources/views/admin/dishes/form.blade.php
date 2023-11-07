@@ -15,7 +15,7 @@
                         </h2>
                     @else
                         <h2 class="fw-semibold">
-                            Crea un nuovo ristorante
+                            Crea un nuovo Piatto
                         </h2>
                     @endif
 

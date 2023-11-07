@@ -58,6 +58,7 @@ class RestaurantController extends Controller
     {
         $user = Auth::user();
         $form_data = $request->all();
+       
 
 
 
@@ -68,6 +69,7 @@ class RestaurantController extends Controller
 
         $newRestaurant->slug = Str::slug($form_data['name'], '-');
         $newRestaurant->fill($form_data);
+
         if ($request->hasFile('photo')) {
 
             $path = Storage::put('restaurant_photo', $request->photo);
@@ -129,6 +131,8 @@ class RestaurantController extends Controller
     {
         $user = Auth::user();
         $form_data = $request->all();
+
+       
 
         $this->validation($form_data);
 
@@ -193,6 +197,7 @@ class RestaurantController extends Controller
             'piva.digits' => 'La Partita Iva deve contenere 11 numeri',
             'photo.image' => 'Devi inserire un file di tipo immagine!',
             'photo.max' => 'Dimensione immagine troppo grande!'
+            
 
 
 

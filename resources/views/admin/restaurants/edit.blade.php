@@ -60,12 +60,19 @@
 
                                 {{-- IMAGES INPUT --}}
                                 <div class="m-4 d-flex align-items-center row ">
-                                    <div class="form-group py-3 d-flex flex-column">
-                                        <label class="text-uppercase fw-bold" for="photo">Scegli foto *</label>
-                                        <input class="py-2" type="file" class="form-control" id="photo" name="photo">
-                                        <div id="image-validation-message"></div>
-                                    </div>
-                                </div>
+									<label class="text-uppercase fw-bold" for="piva">Scegli foto</label>
+
+									<div class="col-md-6">
+										<input id="photo" type="file" 
+											class="form-control @error('photo') is-invalid @enderror" name="photo">
+
+										@error('photo')
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
+									</div>
+								</div>
                                 {{-- //IMAGES INPUT --}}
                                 <div class="m-4 d-flex align-items-center row ">
                                     <div class="d-flex">
