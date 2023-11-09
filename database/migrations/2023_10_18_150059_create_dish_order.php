@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dishes_order', function (Blueprint $table) {
+        Schema::create('dish_order', function (Blueprint $table) {
             $table->smallInteger('quantity');
             $table->dateTime('created_at');
             $table->foreignId('dish_id');

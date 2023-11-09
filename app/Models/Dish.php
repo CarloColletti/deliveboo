@@ -20,6 +20,10 @@ class Dish extends Model
         'slug'
     ];
 
+    public function orders(){
+        return $this->belongsToMany(Order::class);
+    }
+
     
 
 }
