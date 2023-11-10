@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Dish;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
@@ -62,15 +63,34 @@ class OrderController extends Controller
 
         try {
             $formData = $request->all();
-    
+            
             $newOrder = new Order;
             $newOrder->fill($formData);
             $newOrder->save();
+
+            foreach ($formData['finalCart'] as $dishData) {
+                $dish = Dish::find($dishData['id']);
+            
+                // Verifica che $dish esista e che quantity sia presente e non nullo
+                if ($dish && array_key_exists('quantity', $dishData) && !is_null($dishData['quantity'])) {
+                    $newOrder->dishes()->attach($dish, [
+                        'quantity' => $dishData['quantity'],
+                        'created_at' => now(), // Imposta la data corrente
+                    ]);
+                } else {
+                    // Gestisci il caso in cui il piatto non può essere inserito correttamente
+                    // Puoi anche aggiungere un log per vedere i dettagli dell'errore
+                    Log::error("Impossibile aggiungere il piatto {$dishData['id']} all'ordine. Dati mancanti o errati.");
+                }
+            }
     
             return response()->json([
                 'success' => true,
                 'results' => $formData,
+                
             ]);
+
+           
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json([
