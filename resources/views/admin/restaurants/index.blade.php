@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-center mt-5">Ecco la lista dei tuoi ristoranti</h1>
+    <h1 class="text-center mt-5">A quanto pare non hai un ristorante, <br> crealo in pochi semplici passi</h1>
     {{-- <div class="d-flex justify-content-center m t-5">
         <ul class="">
             
@@ -10,7 +10,10 @@
         </ul>
     </div>
     <div> --}}
-        <button><a href="{{ route('admin.restaurants.create') }}">Crea un ristorante</a></button>
+        <div class="mt-5 d-flex justify-content-center">
+            <button class=""><a class="link-unstyled" href="{{ route('admin.restaurants.create') }}">Crea un ristorante</a></button>
+        </div>
+
        
     </div>
 @endsection 
